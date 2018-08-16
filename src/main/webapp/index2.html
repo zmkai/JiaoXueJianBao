@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="./js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="div1">
+			nihao
+		</div>
+		<div>
+			nihao
+		</div>
+		<script>
+			$.ajax({
+				type:"get",
+				url:"http://localhost:8080/jiaoXueJianBao//getJianBao?t='"+Math.random()+"",
+				async:true,
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					var html = "";
+					if(data.code == 0){
+						var html = "";
+						for(var i = 0;i<data.data.length;i++){
+							html+="<div><a href = '"+data.data[i].href+"'>第"+data.data[i].title+"期教学简报</a></div>";
+							document.getElementById("div1").innerHTML = html;
+						}
+					}else if(data.code == 1){
+						alert(data.msg);
+					}
+				},
+				error:function(XMLHttpRequest,textStatus,errorThrown){
+					alert(XMLHttpRequest);
+				}
+			});
+		</script>
+	</body>
+</html>
